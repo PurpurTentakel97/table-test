@@ -14,6 +14,9 @@ private:
 	[[nodiscard]] std::pair<usize, usize> pos_from_cell(Cell* cell) const;
 	[[nodiscard]] usize index_from_cell(Cell* cell) const;
 
+	[[nodiscard]] bool is_valid_pos(usize row, usize column) const;
+	[[nodiscard]] bool is_valid_index(usize index) const;
+
 public:
 	Table(usize row_count, usize column_count);
 };

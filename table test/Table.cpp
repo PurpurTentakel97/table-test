@@ -1,23 +1,23 @@
 #include "Table.hpp"
 #include <stdexcept>
 
-size_t Table::index_from_pos(size_t row, size_t column) const {
+size_t Table::index_from_pos(usize row, usize column) const {
 	return m_column_count * row + column;
 }
 
 std::pair<usize, usize> Table::pos_from_index(usize index) const {
-	auto row = index / m_column_count;
-	auto column = index - index_from_pos(row, 0);
+	auto const row    = index / m_column_count;
+	auto const column = index % m_column_count;
 	return { row, column };
 }
 
 std::pair<usize, usize> Table::pos_from_cell(Cell* cell) const {
-	auto index = index_from_cell(cell);
+	auto const index = index_from_cell(cell);
 	return pos_from_index(index);
 }
 
 usize Table::index_from_cell(Cell* to_check) const {
-	auto it = std::find_if(m_cells.begin(), m_cells.end(), [to_check](std::shared_ptr<Cell> cell) {
+	auto const it = std::find_if(m_cells.begin(), m_cells.end(), [to_check](std::shared_ptr<Cell> cell) {
 		return to_check == cell.get();
 	});
 	if (it != m_cells.end()) {
@@ -26,6 +26,17 @@ usize Table::index_from_cell(Cell* to_check) const {
 	else {
 		throw std::runtime_error("invalid cell in table while getting index from cell");
 	}
+}
+
+bool Table::is_valid_pos(usize row, usize column) const {
+	if (row    >= m_row_count   ) { return false; }
+	if (column >= m_column_count) { return false; }
+	return true;
+}
+
+bool Table::is_valid_index(usize index) const {
+	if (index >= m_cells.size()) { return false; }
+	return true;
 }
 
 Table::Table(usize row_count, usize column_count)
