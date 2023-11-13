@@ -1,4 +1,6 @@
 #include "Table.hpp"
+#include <iostream>
+#include <iomanip>
 #include <stdexcept>
 
 size_t Table::index_from_pos(usize row, usize column) const {
@@ -55,8 +57,38 @@ Table::Table(usize row_count, usize column_count)
 				ind_cb
 			);
 			m_cells.push_back(cell);
-			cell->debug_print();
-
 		}
 	}
+}
+
+void Table::debug_print() const {
+	usize span{ 15 };
+	for (usize row_i = 0; row_i < m_row_count; ++row_i) {
+		std::cout << '+';
+		for (usize col_i = 0; col_i < m_column_count; ++col_i) {
+			std::cout << std::string( span + 2, '-' );
+			if (col_i + 1 != m_column_count) {
+				std::cout << '+';
+			}
+		}
+		std::cout << "+\n";
+
+		std::cout << "| ";
+		for (usize col_i = 0; col_i < m_column_count; ++col_i) {
+			std::cout << std::left <<  std::setw(span + 1) << m_cells[index_from_pos(row_i, col_i)]->value_str();
+			if (col_i + 1 != m_column_count) {
+				std::cout << "| ";
+			}
+		}
+		std::cout << "|\n";
+	}
+	std::cout << '+';
+	for (usize col_i = 0; col_i < m_column_count; ++col_i) {
+		std::cout << std::string(span + 2, '-');
+		if (col_i + 1 != m_column_count) {
+			std::cout << '+';
+		}
+	}
+	std::cout <<  "+\n";
+
 }

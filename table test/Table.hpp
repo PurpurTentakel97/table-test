@@ -19,4 +19,6 @@ private:
 
 public:
 	Table(usize row_count, usize column_count);
+
+	void debug_print() const;
 };

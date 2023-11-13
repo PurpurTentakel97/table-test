@@ -5,6 +5,10 @@
 Cell::Cell(std::string value, pos_callback_func position_callback, index_callback_func index_callback) 
 	:m_value_str{ std::move(value) }, m_position_callback{ position_callback }, m_index_callback{ index_callback } { }
 
+std::string const& Cell::value_str() const {
+	return m_value_str;
+}
+
 // poly
 bool Cell::is_empty() const {
 	return false;
@@ -64,11 +68,4 @@ ColorCell& Cell::as_color() {
 
 ColorCell const& Cell::as_color() const {
 	throw std::runtime_error("other cell as color cell const");
-}
-
-// debug
-void Cell::debug_print() {
-	auto pos = m_position_callback(this);
-	std::cout << "position: " << pos.first << " | " << pos.second << '\n';
-	std::cout << "index: " << m_index_callback(this) << '\n';
 }

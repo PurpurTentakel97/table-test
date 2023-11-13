@@ -1,5 +1,6 @@
 #include "Table.hpp"
 
 int main() {
-	auto table = Table(5, 4);
+	auto table = Table(15, 8);
+	table.debug_print();
 }

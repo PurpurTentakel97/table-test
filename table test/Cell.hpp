@@ -22,6 +22,8 @@ protected:
 public:
 	Cell(std::string value, pos_callback_func position_callback, index_callback_func index_callback);
 
+	[[nodiscard]] std::string const& value_str() const;
+
 	// poly
 	[[nodiscard]] virtual bool is_empty() const;
 	[[nodiscard]] virtual EmptyCell& as_empty();
@@ -42,7 +44,4 @@ public:
 	[[nodiscard]] virtual bool is_color() const;
 	[[nodiscard]] virtual ColorCell& as_color();
 	[[nodiscard]] virtual ColorCell const& as_color() const;
-
-	// debug
-	void debug_print();
 };
