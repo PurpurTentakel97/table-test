@@ -11,6 +11,10 @@ private:
 public:
 	ColorCell(Color value, pos_callback_func position_callback, index_callback_func index_callback);
 
+	[[nodiscard]] Color value() const;
+ 	void set_value(Color value);
+
+
 	// poly
 	[[nodiscard]] bool is_color() const override;
 	[[nodiscard]] ColorCell& as_color() override;

@@ -2,7 +2,11 @@
 #include <stdexcept>
 #include <iostream>
 
-Cell::Cell(std::string value, pos_callback_func position_callback, index_callback_func index_callback) 
+void Cell::set_value_str(std::string const& value_str) {
+	m_value_str = std::move(value_str);
+}
+
+Cell::Cell(std::string value, pos_callback_func position_callback, index_callback_func index_callback)
 	:m_value_str{ std::move(value) }, m_position_callback{ position_callback }, m_index_callback{ index_callback } { }
 
 std::string const& Cell::value_str() const {

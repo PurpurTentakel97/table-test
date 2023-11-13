@@ -18,6 +18,8 @@ protected:
 	pos_callback_func m_position_callback;
 	using index_callback_func = std::function<usize(Cell*)>;
 	index_callback_func m_index_callback;
+
+	void set_value_str(std::string const& value_str);
 	
 public:
 	Cell(std::string value, pos_callback_func position_callback, index_callback_func index_callback);

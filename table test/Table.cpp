@@ -43,20 +43,20 @@ bool Table::is_valid_index(usize index) const {
 
 Table::Table(usize row_count, usize column_count)
 	: m_row_count{ row_count }, m_column_count{ column_count } {
-	auto pos_cb = [this](Cell* cell) -> std::pair<usize, usize> {
+	m_pos_cb = [this](Cell* cell) -> std::pair<usize, usize> {
 		return this->pos_from_cell(cell);
 	};
-	auto ind_cb = [this](Cell* cell) -> usize {
+	m_ind_cb = [this](Cell* cell) -> usize {
 		return this->index_from_cell(cell);
 	};
 
 	for (usize row_i = 0; row_i < row_count; ++row_i) {
 		for (usize column_i = 0; column_i < column_count; ++column_i) {
-			auto cell = std::make_shared<EmptyCell>(
-				pos_cb,
-				ind_cb
-			);
-			m_cells.push_back(cell);
+			m_cells.push_back(std::make_shared<IntCell>(
+				1,
+				m_pos_cb,
+				m_ind_cb
+			));
 		}
 	}
 }
