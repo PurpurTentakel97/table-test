@@ -10,6 +10,11 @@ public:
 	[[nodiscard]] int value() const;
 	void set_value(int value);
 
+	void clear() override {
+		m_value = 0;
+		set_value_str(std::to_string(m_value));
+	}
+
 	// poly
 	[[nodiscard]] bool is_int() const override;
 	[[nodiscard]] IntCell& as_int() override;

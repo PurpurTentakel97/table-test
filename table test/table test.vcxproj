@@ -139,7 +139,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="StringCell.cpp" />
     <ClCompile Include="Table.cpp" />
-    <ClCompile Include="Table.hpp" />
+    <ClInclude Include="Table.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cell.hpp" />

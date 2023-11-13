@@ -56,6 +56,7 @@ public:
 	Table(usize row_count, usize column_count);
 
 	void debug_print() const;
+	void clear_cell(usize row, usize column) const;
 
 	template<typename value_ty, typename cell_ty = value_to_cell<value_ty>::Type>
 	void set_value(usize row, usize column, value_ty value) {

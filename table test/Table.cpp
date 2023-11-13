@@ -92,3 +92,7 @@ void Table::debug_print() const {
 	std::cout <<  "+\n";
 
 }
+
+void Table::clear_cell(usize row, usize column) const {
+	m_cells[index_from_pos(row, column)]->clear();
+}

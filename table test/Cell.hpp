@@ -25,6 +25,7 @@ public:
 	Cell(std::string value, pos_callback_func position_callback, index_callback_func index_callback);
 
 	[[nodiscard]] std::string const& value_str() const;
+	virtual void clear();
 
 	// poly
 	[[nodiscard]] virtual bool is_empty() const;

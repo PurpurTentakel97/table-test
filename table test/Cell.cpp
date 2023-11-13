@@ -13,6 +13,8 @@ std::string const& Cell::value_str() const {
 	return m_value_str;
 }
 
+void Cell::clear() { }
+
 // poly
 bool Cell::is_empty() const {
 	return false;
