@@ -1,50 +1,48 @@
 #pragma once
-#include "types.hpp"
-#include <string>
+
+#include <variant>
 #include <functional>
+#include <string>
+#include <stdexcept>
 
-class EmptyCell;
-class StringCell;
-class IntCell;
-class DoubleCell;
-class ColorCell;
+struct Color final {
+	int r, g, b, a;
+};
 
-class Cell {
+class Cell final {
+	friend class Table;
 private:
-	std::string m_value_str;
+	int x, y;
+	std::string str_value;
+	std::variant<int, double, std::monostate, std::string, Color> m_value;
+	std::function<void(Cell&)> callback;
 
-protected:
-	using pos_callback_func = std::function<std::pair<usize, usize>(Cell*)>;
-	pos_callback_func m_position_callback;
-	using index_callback_func = std::function<usize(Cell*)>;
-	index_callback_func m_index_callback;
-
-	void set_value_str(std::string const& value_str);
-	
 public:
-	Cell(std::string value, pos_callback_func position_callback, index_callback_func index_callback);
+	Cell(int x, int y) : x{ x }, y{ y } {
+		m_value = std::monostate{};
+	}
 
-	[[nodiscard]] std::string const& value_str() const;
-	virtual void clear();
+	template<typename T>
+	[[nodiscard]] bool is_a() const {
+		return std::holds_alternative<T>(m_value);
+	}
 
-	// poly
-	[[nodiscard]] virtual bool is_empty() const;
-	[[nodiscard]] virtual EmptyCell& as_empty();
-	[[nodiscard]] virtual EmptyCell const& as_empty() const;
+	template<typename T>
+	[[nodiscard]] T& get_value() const {
+		if (auto* ptr = std::get_if<T>(m_value)) {
+			return *ptr;
+		}
+		else {
+			throw std::runtime_error("type mismatch");
+		}
+	}
 
-	[[nodiscard]] virtual bool is_string() const;
-	[[nodiscard]] virtual StringCell& as_string();
-	[[nodiscard]] virtual StringCell const& as_string() const;
+	[[nodiscard]] bool is_empty() const {
+		return std::holds_alternative<std::monostate>(m_value);
+	}
 
-	[[nodiscard]] virtual bool is_int() const;
-	[[nodiscard]] virtual IntCell& as_int();
-	[[nodiscard]] virtual IntCell const& as_int() const;
-
-	[[nodiscard]] virtual bool is_double() const;
-	[[nodiscard]] virtual DoubleCell& as_double();
-	[[nodiscard]] virtual DoubleCell const& as_double() const;
-
-	[[nodiscard]] virtual bool is_color() const;
-	[[nodiscard]] virtual ColorCell& as_color();
-	[[nodiscard]] virtual ColorCell const& as_color() const;
+	void set_value(auto value) {
+		m_value = value;
+		callback(*this);
+	}
 };

@@ -18,6 +18,13 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Cell.hpp" />
+    <ClInclude Include="Table.hpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -130,27 +137,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Cell.cpp" />
-    <ClCompile Include="ColorCell.cpp" />
-    <ClCompile Include="DoubleCell.cpp" />
-    <ClCompile Include="EmptyCell.cpp" />
-    <ClCompile Include="IntCell.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="StringCell.cpp" />
-    <ClCompile Include="Table.cpp" />
-    <ClInclude Include="Table.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Cell.hpp" />
-    <ClInclude Include="Cells.hpp" />
-    <ClInclude Include="ColorCell.hpp" />
-    <ClInclude Include="DoubleCell.hpp" />
-    <ClInclude Include="EmptyCell.hpp" />
-    <ClInclude Include="IntCell.hpp" />
-    <ClInclude Include="StringCell.hpp" />
-    <ClInclude Include="types.hpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
