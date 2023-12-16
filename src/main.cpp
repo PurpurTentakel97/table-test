@@ -2,7 +2,22 @@
 #include "TablePrinter.hpp"
 
 void callback(Cell &cell) {
-    std::cout << cell.string_value() << '\n';
+    std::stringstream s{ };
+    s << "current_value: " << cell.string_value() << '\n';
+    s << "old_value: ";
+    if (cell.is_a_old<Color>()) {
+        s << cell.old_value<Color>().as_string();
+    } else if (cell.is_a_old<std::monostate>()) {
+        s << "void";
+    } else if (cell.is_a_old<double>()) {
+        s << std::to_string(cell.old_value<double>());
+    } else if (cell.is_a_old<int>()) {
+        s << std::to_string(cell.old_value<int>());
+    } else if (cell.is_a_old<std::string>()) {
+        s << cell.old_value<std::string>();
+    }
+
+    std::cout << s.str() << '\n';;
 }
 
 int main() {
@@ -18,5 +33,8 @@ int main() {
     table.set_value(4, 0, 10);
     table.set_value(0, 1, Color(1, 5, 6, 9));
 
+    TablePrinter::print(table);
+
+    table.clear_cell(2, 2);
     TablePrinter::print(table);
 };

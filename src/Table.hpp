@@ -24,6 +24,8 @@ public:
         return cell;
     }
 
+    void clear_cell(int row, int column);
+
     void set_cell_callback(int row, int column, std::function<void(Cell &)> const &callback);
 
     void test_cell_callback(int row, int column);

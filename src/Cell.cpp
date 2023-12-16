@@ -11,7 +11,7 @@ void Cell::set_string_value() {
     } else if (is_a<double>()) {
         m_str_value = std::to_string(value<double>());
     } else if (is_a<std::monostate>()) {
-        m_str_value = "void";
+        m_str_value.clear();
     }
 }
 
@@ -32,6 +32,10 @@ void Cell::set_callback(Cell::callback_ty const &callback) {
 
 void Cell::test_callback() {
     m_callback(*this);
+}
+
+void Cell::clear() {
+    set_value(std::monostate());
 }
 
 

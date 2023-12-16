@@ -29,6 +29,7 @@ private:
     int m_row, m_column;
     std::string m_str_value;
     variant_ty m_value{ std::monostate{ }};
+    variant_ty m_old_value{ std::monostate{ }};
     callback_ty m_callback{ [](Cell &) { }};
 
     void set_string_value();
@@ -42,8 +43,23 @@ public:
     }
 
     template<typename T>
+    [[nodiscard]] bool is_a_old() const {
+        return std::holds_alternative<T>(m_old_value);
+    }
+
+
+    template<typename T>
     [[nodiscard]] T value() const {
         if (auto const *ptr = std::get_if<T>(&m_value)) {
+            return *ptr;
+        } else {
+            throw std::runtime_error("type mismatch");
+        }
+    }
+
+    template<typename T>
+    [[nodiscard]] T old_value() const {
+        if (auto const *ptr = std::get_if<T>(&m_old_value)) {
             return *ptr;
         } else {
             throw std::runtime_error("type mismatch");
@@ -56,10 +72,13 @@ public:
 
     template<typename T>
     void set_value(T value) {
+        m_old_value = m_value;
         m_value = value;
         set_string_value();
         m_callback(*this);
     }
+
+    void clear();
 
     void set_callback(callback_ty const &callback);
 

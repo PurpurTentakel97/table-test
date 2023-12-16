@@ -40,6 +40,10 @@ Cell &Table::set_cell(int row, int column) {
     return c;
 }
 
+void Table::clear_cell(int row, int column) {
+    get_cell(row, column).clear();
+}
+
 void Table::set_cell_callback(int row, int column, std::function<void(Cell &)> const &callback) {
     auto &cell = get_cell(row, column);
     cell.set_callback(callback);
@@ -48,3 +52,5 @@ void Table::set_cell_callback(int row, int column, std::function<void(Cell &)> c
 void Table::test_cell_callback(int row, int column) {
     get_cell(row, column).test_callback();
 }
+
+
