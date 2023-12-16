@@ -19,9 +19,7 @@ private:
     std::function<void(Cell &)> callback;
 
 public:
-    Cell(int x, int y) : x{x}, y{y} {
-        m_value = std::monostate{};
-    }
+    Cell(int x, int y);
 
     template<typename T>
     [[nodiscard]] bool is_a() const {
@@ -37,9 +35,7 @@ public:
         }
     }
 
-    [[nodiscard]] bool is_empty() const {
-        return std::holds_alternative<std::monostate>(m_value);
-    }
+    [[nodiscard]] bool is_empty() const;
 
     void set_value(auto value) {
         m_value = value;

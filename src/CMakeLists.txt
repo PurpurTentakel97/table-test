@@ -1,5 +1,9 @@
 add_executable(table-test
-	main.cpp
-	Table.hpp
-	Cell.hpp
+        main.cpp
+        Cell.hpp
+        Cell.cpp
+        Table.hpp
+        Table.cpp
+        TablePrinter.hpp
+        TablePrinter.cpp
 )
