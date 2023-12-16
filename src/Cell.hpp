@@ -12,6 +12,8 @@ struct Color final {
 class Cell final {
     friend class Table;
 
+    friend class TablePrinter;
+
 private:
     int x, y;
     std::string str_value;

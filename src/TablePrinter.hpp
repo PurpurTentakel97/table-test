@@ -6,5 +6,5 @@
 
 class TablePrinter final {
 public:
-    void print(Table const &table) const;
+    static void print(Table const &table);
 };
