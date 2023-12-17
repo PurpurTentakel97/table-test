@@ -33,8 +33,11 @@ int main() {
     table.set_value(4, 0, 10);
     table.set_value(0, 1, Color(1, 5, 6, 9));
 
+
     TablePrinter::print(table);
 
+    // table.set_cell(9, 0);
+    table.set_value(9, 0, "new cell");
     table.clear_cell(2, 2);
     TablePrinter::print(table);
 };

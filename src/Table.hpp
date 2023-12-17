@@ -9,8 +9,14 @@ private:
 
     friend class TablePrinter;
 
+    [[nodiscard]] Cell const *get_cell_unsafe(int row, int column) const;
+
+    [[nodiscard]] Cell *get_cell_unsafe(int row, int column);
+
 public:
     Table(int row_count, int column_count);
+
+    [[nodiscard]] bool has_cell(int row, int column) const;
 
     [[nodiscard]] Cell &get_cell(int row, int column);
 
@@ -19,9 +25,14 @@ public:
     Cell &set_cell(int row, int column);
 
     Cell &set_value(int row, int column, auto value) {
-        auto &cell = get_cell(row, column);
-        cell.set_value(value);
-        return cell;
+        auto cell = get_cell_unsafe(row, column);
+        if (not cell) {
+            auto &new_cell = set_cell(row, column);
+            new_cell.set_value(value);
+            return new_cell;
+        }
+        cell->set_value(value);
+        return *cell;
     }
 
     void clear_cell(int row, int column);

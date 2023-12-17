@@ -48,7 +48,12 @@ void TablePrinter::print(const Table &table) {
                 if (column == 0) {
                     ss << std::to_string(row) << ' ';
                 } else {
-                    ss << table.get_cell(static_cast<int>(row - 1), static_cast<int>(column - 1)).m_str_value << ' ';
+                    if (table.has_cell(static_cast<int>(row - 1), static_cast<int>(column - 1))) {
+                        ss << table.get_cell(static_cast<int>(row - 1), static_cast<int>(column - 1)).m_str_value
+                           << ' ';
+                    } else {
+                        ss << ' ' << ' ';
+                    }
                 }
             }
             ss << "|\n";
