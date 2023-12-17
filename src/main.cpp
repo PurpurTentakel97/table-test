@@ -1,5 +1,6 @@
 #include "Table.hpp"
-#include "TablePrinter.hpp"
+#include <sstream>
+#include <iostream>
 
 void callback(Cell &cell) {
     std::stringstream s{ };
@@ -20,24 +21,13 @@ void callback(Cell &cell) {
     std::cout << s.str() << '\n';;
 }
 
+static inline const std::function<void(std::string const &)> tag({ [](std::string const &m) -> void {
+    std::cout << "[[" << m << "]]\n";
+}});
+
+
 int main() {
     auto table = Table{ 5, 4 };
-
-    table.set_cell_callback(2, 2, callback);
-    table.set_cell_callback(1, 3, callback);
-    table.set_cell_callback(4, 0, callback);
-    table.set_cell_callback(0, 1, callback);
-
-    table.set_value(2, 2, "Hello World!");
-    table.set_value(1, 3, 3.56);
-    table.set_value(4, 0, 10);
-    table.set_value(0, 1, Color(1, 5, 6, 9));
-
-
-    TablePrinter::print(table);
-
-    // table.set_cell(9, 0);
-    table.set_value(9, 0, "new cell");
-    table.clear_cell(2, 2);
-    TablePrinter::print(table);
+    table.set_numbered_table(true);
+    table.print();
 };
